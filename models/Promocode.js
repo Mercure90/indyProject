@@ -9,6 +9,7 @@ const promocodeSchmea = new mongoose.Schema({
         required: [true, 'Please provide name'],
         maxlength: 50,
         minlength: 3,
+        unique: true,
     },
     avantage: {
         "percent": {
@@ -17,25 +18,8 @@ const promocodeSchmea = new mongoose.Schema({
             default: 0,
         }
     },
-    restriction: [
-        [{
-            "field": {
-                type: String,
-                enum: {
-                    values: ['age', 'date', 'meteo'],
-                    message: '{VALUE} is not supported',
-                }
-            },
-            "operator": {
-                type: String,
-                enum: {
-                    values: ['eq', 'gt', 'st'],
-                    message: '{VALUE} is not supported',
-                }
-            },
-            "value":{type:String,required:true}
-        }]
-    ],createdBy: {
+    restrictions: {},
+    createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
         required: [true, 'Please provide user'],
